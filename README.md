@@ -1,52 +1,53 @@
 # Final Project Assignment 2: Explore One More! (FP2) 
-DUE March 30, 2015 Monday (2015-03-30)
 
-This is just like FP1, but where you do a different library. (Full description of FP1 is [on Piazza.][piazza])
 
-During this assignment, you should start looking for teammates. See the project schedule [on Piazza.][schedule]
+# OPL-Project
+## Exploration of the SlideShow Library
+######by Alex Nevers
 
-Write your report right in this file. Instructions are below. You can delete them if you like, or just leave them at the bottom.
-You are allowed to change/delete anything in this file to make it into your report. It will be public.
+For the second library exploration, I chose SlideShow. This slideshow proved to be not all that difficult to work with. Each slide is its own procedure simply named "slide", with specifications for slide width, title, alignment, and timeout following as arguments. The other important argument is easily the element list, or "item", which actually prints bullet points. It's possible item is also used for something other than bullet points, though I would have to explore the library further to find out, which i intend to.
 
-This file is formatted with the [**markdown** language][markdown], so take a glance at how that works.
+The first section of my output is generalizing slides, which is shown b using number variables to print slide numbers in each successive slide, whic is easily done. Im interested in finding out how this could be useful past integers. THe next section of code output is using successive steps or bullet points. In the previous section, hitting space brought you to the next slide with text already visible. Using the successive steps method means that each next item or bullet point displays after hitting space, as most slideshows do. This also comes with the option to display an item, remove it, and the display a different item in its place, as is shown in the output (Third step displays, is removed, New Third step and the fourth step shown)
 
-This file IS your report for the assignment, including code and your story.
+I used the last section to try out more fun things like text formatting, which will be useful when creating more graphic slides. Bold, Bold+Italic, and serif text were all displayed, along with an example or a paragraph in bplace of bullet points. I intend to study this library further, maybe finding a way to incorporate the icon or image librar into it as well, to create more graphic and visually interesting output.
 
-Code is super easy in markdown, which you can easily do inline `(require net/url)` or do in whole blocks:
-```
-#lang racket
 
-(require net/url)
-```
+####Output
 
-### My Library: (library name here)
-Write what you did!
-Remember that this report must include:
- 
-* a narrative of what you did
-* the code that you wrote
-* output from your code demonstrating what it produced
-* any diagrams or figures explaining your work 
- 
-The narrative itself should be no longer than 350 words. Yes, you can add more files and link or refer to them. This is github, handling files is awesome and easy!
+Capture of output from the below program [here.](http://imgur.com/a/9iu7s)
 
-Ask questions publicly in the Piazza group.
 
-### How to Do and Submit this assignment
+####Test Code
+    #lang slideshow
 
-1. To start, [**fork** this repository][forking].
-1. Modify the README.md file and [**commit**][ref-commit] changes to complete your solution.
-  2. (This assignment is just one README.md file, so you can edit it right in github without cloning)
-  3. (You may need to clone and push if you want to add extra files)
-1. [Create a **pull request**][pull-request] on the original repository to turn in the assignment.
+    (define (slide-n n)
+    (slide
+    #:title "How to Generalize Slides (1 - 3)"
+    (item "This is slide number" (number->string n))))
+       (slide-n 1)
+       (slide-n 2)
+       (slide-n 3)
 
-<!-- Links -->
-[piazza]: https://piazza.com/class/i55is8xqqwhmr?cid=411
-[schedule]: https://piazza.com/class/i55is8xqqwhmr?cid=453
-[markdown]: https://help.github.com/articles/markdown-basics/
-[forking]: https://guides.github.com/activities/forking/
-[ref-clone]: http://gitref.org/creating/#clone
-[ref-commit]: http://gitref.org/basic/#commit
-[ref-push]: http://gitref.org/remotes/#push
-[pull-request]: https://help.github.com/articles/creating-a-pull-request
+    (slide
+     #:title "Example of Successive Steps"
+     (item "First step")
+     'next
+     (item "Second step")
+     'next
+     'alts
+     (list (list (item "Tentative third step")
+                 'next
+                 (item "This isn't working... back up"))
+           (list (item "Third step that works")))
+     'next
+     (item "Fourth step"))
 
+
+    (slide #:title "Let's test out font stuff here" #:layout 'center
+           #:timeout #f 
+           (item (bt "HEY THIS IS BOLD"))
+           (item (bit "This is super emphasized"))
+           (item (rt "Heres some serif text"))
+           (para "Heres an awful nice long run on sentence to give you an idea of what a paragraph looks like in a slideshow.
+           We can make this even bigger by adding another sentence to it! 
+           Wow, lookit it go. What a nice paragraph. Wowza."))
